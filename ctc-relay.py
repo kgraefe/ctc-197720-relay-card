@@ -123,7 +123,6 @@ def main():
         help="Read timeout in seconds (float allowed)",
         type=float, default=None, metavar="SECONDS"
     )
-    parser.set_defaults(func=None)
 
     subparsers = parser.add_subparsers(
         title="command",
@@ -177,7 +176,7 @@ def main():
     )
 
     args = parser.parse_args()
-    if args.func is None:
+    if not hasattr(args, "func"):
         parser.error("Command is invalid.")
 
     tty = serial.Serial(args.tty, baudrate=19200)
